@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { Button, StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 
-export default function Cadastro() {
+export default function Login() {
   const router = useRouter();
-  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
 
-  const handleCadastro = () => {
-    if (!nome.trim() || !email.trim() || !senha.trim()) {
+  const handleLogin = () => {
+    if (!email.trim() || !senha.trim()) {
       setErro('Por favor, preencha todos os campos!');
       return;
     }
@@ -21,29 +20,20 @@ export default function Cadastro() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Crie sua Conta</Text>
-      
+      <Text style={styles.title}>Acesse sua Conta</Text>
+
       {/* Mensagem de erro na tela */}
       {erro ? <Text style={styles.errorText}>{erro}</Text> : null}
-
-      <Text style={styles.text}>Nome</Text>
-      <TextInput 
-        placeholder="Nome completo" 
-        style={styles.input} 
-        value={nome}
-        onChangeText={(text) => { setNome(text); setErro(''); }}
-      />
 
       <Text style={styles.text}>Email</Text>
       <TextInput 
         placeholder="Email" 
         style={styles.input} 
-        keyboardType="email-address" 
-        autoCapitalize="none" 
         value={email}
         onChangeText={(text) => { setEmail(text); setErro(''); }}
+        autoCapitalize="none"
       />
-      
+
       <Text style={styles.text}>Senha</Text>
       <TextInput 
         placeholder="Senha" 
@@ -52,18 +42,18 @@ export default function Cadastro() {
         value={senha}
         onChangeText={(text) => { setSenha(text); setErro(''); }}
       />
-      
+
       {/* Botão com sensação de clique */}
       <Pressable 
-        style={({ pressed }) => [styles.botao, pressed && styles.botaoPressionado]} 
-        onPress={handleCadastro}
+        style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]} 
+        onPress={handleLogin}
       >
-        <Text style={styles.textoBotao}>Cadastrar</Text>
+        <Text style={styles.buttonText}>Logar</Text>
       </Pressable>
-      
+
       <Button
-        title="Já tenho conta (Login)"
-        onPress={() => router.push('/login')}
+        title="Fazer cadastro"
+        onPress={() => router.push('/cadastro')}
         color="#007AFF"
       />
     </View>
@@ -75,11 +65,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 16, 
+    gap: 16,
     padding: 24,
     backgroundColor: '#fff',
   },
-  titulo: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
@@ -97,10 +87,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   text: {
-    alignSelf: 'flex-start', 
+    alignSelf: 'flex-start',
     fontWeight: '600',
     color: '#555',
-    marginBottom: -8, 
+    marginBottom: -8,
   },
   input: {
     width: '100%',
@@ -111,7 +101,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     backgroundColor: '#fff',
   },
-  botao: {
+  button: {
     width: '100%',
     height: 50,
     backgroundColor: '#007AFF',
@@ -120,11 +110,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 8,
   },
-  botaoPressionado: {
+  buttonPressed: {
     opacity: 0.7,
     transform: [{ scale: 0.98 }],
   },
-  textoBotao: {
+  buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
