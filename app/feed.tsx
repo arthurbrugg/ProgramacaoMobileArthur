@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View, TextInput, Pressable, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Button } from 'react-native';
 
 export default function Feed() {
+  const router = useRouter();
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -22,6 +25,16 @@ export default function Feed() {
         <Text style={styles.infoText}>GARANTIA</Text>
         <Text style={styles.infoText}>ATÉ 10X SEM JUROS</Text>
       </View>
+      <Button
+        title="Acessar API"
+        onPress={() => router.push('/api')}
+        color="#007AFF"
+      />
+            <Button
+        title="Buscar cep"
+        onPress={() => router.push('/api')}
+        color="#007AFF"
+      />
     </ScrollView>
   );
 }
