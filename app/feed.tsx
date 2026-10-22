@@ -1,15 +1,16 @@
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
+import Saudacao from './component/Saudacao';
+import CartaoAluno from './component/CartaoAluno';
 
 export default function Feed() {
   const router = useRouter();
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
         <Text style={styles.logo}>Sonora</Text>
       </View>
-
       <View style={styles.hero}>
         <Text style={styles.tagline}>COLEÇÃO EM DESTAQUE</Text>
         <Text style={styles.heroTitle}>Sinta o som premium</Text>
@@ -20,21 +21,40 @@ export default function Feed() {
           <Text style={styles.heroButtonText}>Ver guitarras</Text>
         </Pressable>
       </View>
+
       <View style={styles.infoBar}>
         <Text style={styles.infoText}>ENTREGA NACIONAL</Text>
         <Text style={styles.infoText}>GARANTIA</Text>
         <Text style={styles.infoText}>ATÉ 10X SEM JUROS</Text>
       </View>
-      <Button
-        title="Acessar API"
-        onPress={() => router.push('/api')}
-        color="#007AFF"
-      />
-            <Button
-        title="Buscar cep"
-        onPress={() => router.push('/api')}
-        color="#007AFF"
-      />
+
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.actionButton} onPress={() => router.push('/api')}>
+          <Text style={styles.actionButtonText}>Acessar API</Text>
+        </Pressable>
+        <Pressable style={styles.actionButtonSecondary} onPress={() => router.push('/api')}>
+          <Text style={styles.actionButtonTextSecondary}>Buscar CEP</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.secaoAtividade}>
+        <Text style={styles.tituloSecao}>Mural de Saudações</Text>
+        <Saudacao nome="Arthur" />
+        <Saudacao nome="Adrian" />
+        <Saudacao nome="Matheus" />
+
+        <Text style={styles.tituloSecao}>Cartões dos Alunos</Text>
+        <CartaoAluno
+          nome="Arthur"
+          curso="Desenvolvimento de Sistemas"
+          idade={18}
+        />
+        <CartaoAluno
+          nome="Adrian"
+          curso="Engenharia de Software"
+          idade={20}
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -44,43 +64,40 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0a0a0a',
   },
+  content: {
+    paddingBottom: 40,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingTop: 48,
+    paddingHorizontal: 20,
+    paddingTop: 56,
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#222',
   },
   logo: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
     fontStyle: 'italic',
     color: '#fff',
-  },
-  searchInput: {
-    backgroundColor: '#1a1a1a',
-    color: '#fff',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#333',
-    width: 130,
-    fontSize: 12,
+    letterSpacing: 1,
   },
   hero: {
     padding: 24,
     backgroundColor: '#141414',
-    marginVertical: 12,
+    marginVertical: 16,
+    borderRadius: 16,
+    marginHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#222',
   },
   tagline: {
     color: '#d97706',
     fontSize: 11,
     fontWeight: 'bold',
-    letterSpacing: 1,
+    letterSpacing: 1.5,
   },
   heroTitle: {
     color: '#fff',
@@ -90,51 +107,80 @@ const styles = StyleSheet.create({
   },
   heroText: {
     color: '#aaa',
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 14,
+    lineHeight: 20,
     marginBottom: 16,
   },
   heroButton: {
-    backgroundColor: '#fff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
+    backgroundColor: '#d97706',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 25,
     alignSelf: 'flex-start',
   },
   heroButtonText: {
-    color: '#000',
+    color: '#fff',
     fontWeight: 'bold',
     fontSize: 13,
   },
   infoBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 14,
+    paddingVertical: 16,
     backgroundColor: '#141414',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    marginHorizontal: 16,
+    borderRadius: 12,
+    borderWidth: 1,
     borderColor: '#222',
   },
   infoText: {
-    color: '#ccc',
-    fontSize: 9,
+    color: '#888',
+    fontSize: 10,
     fontWeight: 'bold',
+    letterSpacing: 0.8,
   },
-  catalog: {
-    backgroundColor: '#fff',
-    padding: 24,
-    marginTop: 12,
-    minHeight: 200,
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: 12,
+    paddingHorizontal: 16,
+    marginTop: 16,
   },
-  catalogTag: {
-    color: '#d97706',
-    fontSize: 11,
+  actionButton: {
+    flex: 1,
+    backgroundColor: '#2563eb',
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  actionButtonText: {
+    color: '#fff',
     fontWeight: 'bold',
+    fontSize: 14,
   },
-  catalogTitle: {
-    color: '#000',
-    fontSize: 22,
+  actionButtonSecondary: {
+    flex: 1,
+    backgroundColor: '#1e293b',
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#334155',
+  },
+  actionButtonTextSecondary: {
+    color: '#38bdf8',
     fontWeight: 'bold',
-    marginTop: 4,
+    fontSize: 14,
+  },
+  secaoAtividade: {
+    paddingHorizontal: 16,
+    marginTop: 24,
+  },
+  tituloSecao: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 16,
+    marginBottom: 12,
+    letterSpacing: 0.5,
   },
 });
